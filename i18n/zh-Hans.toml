@@ -72,6 +72,12 @@ load_comments = "加载评论"
 copied = "已复制！"
 copy_code_to_clipboard = "复制代码"
 
+# Mermaid diagram zoom.
+zoom_diagram = "放大图表"
+zoom_in = "放大"
+zoom_out = "缩小"
+close = "关闭"
+
 # iine appreciation button.
 like_this_post = "点赞这篇文章"
 

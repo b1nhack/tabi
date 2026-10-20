@@ -12,6 +12,7 @@
 @use 'parts/_image-hover.scss';
 @use 'parts/_image-toggler.scss';
 @use 'parts/_image.scss';
+@use 'parts/_mermaid.scss';
 @use 'parts/_misc.scss';
 @use 'parts/_multilingual_quote.scss';
 @use 'parts/_pagination.scss';
@@ -114,6 +115,10 @@
         filter: invert(.88);
     }
 
+    .invertible-mermaid svg {
+        filter: invert(.88);
+    }
+
     .dimmable-image {
         filter: brightness(.8) contrast(1.2);
     }
@@ -124,6 +129,10 @@
         @include theme-variables('dark');
 
         .invertible-image {
+            filter: invert(.88);
+        }
+
+        .invertible-mermaid svg {
             filter: invert(.88);
         }
 

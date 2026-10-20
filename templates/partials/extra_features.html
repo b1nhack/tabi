@@ -59,6 +59,20 @@
     {%- else -%}
         <script defer src="https://cdn.jsdelivr.net/npm/mermaid@latest/dist/mermaid.min.js"></script>
     {%- endif -%}
+    {#- Add hidden HTML elements with the translated strings for the zoom feature -#}
+    <span id="mermaid-zoom-open" class="hidden">
+        {{< translate key="zoom_diagram" default="Zoom diagram" />}}
+    </span>
+    <span id="mermaid-zoom-in" class="hidden">
+        {{< translate key="zoom_in" default="Zoom in" />}}
+    </span>
+    <span id="mermaid-zoom-out" class="hidden">
+        {{< translate key="zoom_out" default="Zoom out" />}}
+    </span>
+    <span id="mermaid-zoom-close" class="hidden">
+        {{< translate key="close" default="Close" />}}
+    </span>
+    <script defer src="{{ get_url(path='js/mermaidZoom.min.js', trailing_slash=false) | safe }}"></script>
 {%- endif -%}
 
 {# Add copy button to code blocks #}

@@ -3,7 +3,9 @@
     <strong>⚠️ JavaScript is required to render the diagram.</strong>
 </noscript>
 
-<pre class="mermaid{% if invertible %} invertible-image{% endif %}{% if full_width %} full-width{% endif %}">
-{{ body | trim | safe }}
+<div class="mermaid-container{% if invertible %} invertible-mermaid{% endif %}{% if full_width %} full-width{% endif %}">
+<pre class="mermaid">
+{{ body | trim | escape }}
 </pre>
+</div>
 {%- endcomponent mermaid -%}

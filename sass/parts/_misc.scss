@@ -280,14 +280,6 @@ details summary {
     transform: rotate(-90deg);
 }
 
-.mermaid p {
-    font-family: var(--sans-serif-font) !important;
-}
-
-.mermaid .node .label {
-    max-width: none !important;
-}
-
 // For the `force_text_direction` component.
 [data-force-text-direction="ltr"] {
     direction: ltr;

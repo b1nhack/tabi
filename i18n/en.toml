@@ -72,6 +72,12 @@ load_comments = "Load comments"
 copied = "Copied!"
 copy_code_to_clipboard = "Copy code to clipboard"
 
+# Mermaid diagram zoom.
+zoom_diagram = "Zoom diagram"
+zoom_in = "Zoom in"
+zoom_out = "Zoom out"
+close = "Close"
+
 # iine appreciation button.
 like_this_post = "Like this post"
 

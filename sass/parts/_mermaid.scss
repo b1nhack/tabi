@@ -1,0 +1,209 @@
+.mermaid p {
+    font-family: var(--sans-serif-font) !important;
+}
+
+.mermaid .node .label {
+    max-width: none !important;
+}
+
+.mermaid-container {
+    position: relative;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.mermaid-zoom-button,
+.mermaid-lightbox-close {
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    border: 1px solid var(--divider-color);
+    border-radius: 50%;
+    background-color: var(--bg-0);
+    user-select: none;
+}
+
+.mermaid-zoom-button {
+    position: absolute;
+    z-index: 1;
+    inset-block-start: 0.5rem;
+    inset-inline-end: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    width: 2rem;
+    height: 2rem;
+
+    &::after {
+        content: "";
+        -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M21 11V3h-8l3.29 3.29-10 10L3 13v8h8l-3.29-3.29 10-10L21 11Z'/%3E%3C/svg%3E");
+        background: var(--text-color);
+        width: 1rem;
+        height: 1rem;
+    }
+
+    &:focus-visible,
+    &:hover {
+        opacity: 1;
+
+        &::after {
+            background: var(--primary-color);
+        }
+    }
+}
+
+.mermaid-container:hover .mermaid-zoom-button {
+    opacity: 1;
+}
+
+@media (pointer: coarse) {
+    .mermaid-zoom-button {
+        opacity: 0.85;
+    }
+}
+
+.mermaid-lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    padding: 2.5rem;
+    background-color: rgba(0, 0, 0, 0.3);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+
+    &.open {
+        display: flex;
+    }
+}
+
+@media (max-width: 600px) {
+    .mermaid-lightbox {
+        padding: 0.75rem;
+    }
+}
+
+.mermaid-lightbox-panel {
+    position: relative;
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    border: 1px solid var(--divider-color);
+    border-radius: 1rem;
+    background-color: var(--background-color);
+}
+
+.mermaid-lightbox-close {
+    position: absolute;
+    z-index: 1;
+    inset-block-start: 1rem;
+    inset-inline-end: 1rem;
+    width: 2.4rem;
+    height: 2.4rem;
+
+    svg {
+        width: 1.1rem;
+        height: 1.1rem;
+
+        path {
+            fill: var(--text-color);
+        }
+    }
+
+    &:hover svg path {
+        fill: var(--primary-color);
+    }
+}
+
+.mermaid-lightbox-stage {
+    display: flex;
+    position: absolute;
+    inset: 0;
+    overflow: auto;
+    padding: 3rem;
+    touch-action: none;
+
+    .mermaid-lightbox-content {
+        margin: auto;
+        line-height: 0;
+
+        svg {
+            display: block;
+            height: auto;
+        }
+    }
+}
+
+.mermaid-lightbox-controls {
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    inset-block-end: calc(1.2rem + env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--divider-color);
+    border-radius: 2rem;
+    background-color: var(--bg-0);
+    padding: 0.2rem 0.6rem;
+    user-select: none;
+
+    .mermaid-lightbox-zoom {
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        border: 0;
+        background: none;
+        color: var(--text-color);
+        font-family: var(--sans-serif-font);
+        font-size: 1.25rem;
+        min-width: 2.2rem;
+        height: 2.2rem;
+
+        &:hover {
+            color: var(--primary-color);
+        }
+    }
+
+    .mermaid-lightbox-scale {
+        color: var(--meta-color);
+        font-family: var(--sans-serif-font);
+        font-size: 0.95rem;
+        min-width: 3.4rem;
+        text-align: center;
+    }
+}
+
+@media print {
+    .mermaid-zoom-button,
+    .mermaid-lightbox {
+        display: none;
+    }
+}
+
+// The dark-mode inversion filter also inverts the painted text selection.
+// invert(.88) maps a channel to `0.88 * 255 - 0.76 * c`, so the selection
+// colours are pre-compensated per channel to still render as the skin
+// colours. Channels that would exceed the reachable range clamp at paint
+// time (a slightly off highlight beats an unskinned one). Browsers without
+// relative colour syntax drop the declarations and fall back to the regular
+// inverted selection.
+@mixin inverted-selection {
+    ::selection {
+        // `#{}` passes the value through verbatim: the SCSS compiler cannot
+        // parse relative colour syntax.
+        background: #{"rgb(from var(--primary-color) calc((224.4 - r) / 0.76) calc((224.4 - g) / 0.76) calc((224.4 - b) / 0.76))"};
+        color: #{"rgb(from var(--hover-color) calc((224.4 - r) / 0.76) calc((224.4 - g) / 0.76) calc((224.4 - b) / 0.76))"};
+    }
+}
+
+[data-theme='dark'] .invertible-mermaid svg {
+    @include inverted-selection;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) .invertible-mermaid svg {
+        @include inverted-selection;
+    }
+}
